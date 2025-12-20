@@ -1,6 +1,9 @@
 :root {
   --background: #0f1728;
   --foreground: #ededed;
+  --bg-gradient-start: #0c121f;
+  --bg-gradient-end: #263883;
+
   --button-color: #1867df;
   --font-sans: var(--font-poppins);
 
@@ -12,6 +15,7 @@
   --text-xl: 1.25rem;     /* 20px */
   --text-2xl: 1.5rem;     /* 24px */
   --text-3xl: 2rem;       /* 32px */
+  --text-4xl: 2.25rem;    /* 36px */
 
   /* Line heights */
   --leading-tight: 1.25;
@@ -42,14 +46,21 @@
   box-sizing: border-box;
 }
 
-html,
-body {
+ * {
   padding: 0;
   margin: 0;
 }
 
 body {
-  background: var(--background);
+  background-image: radial-gradient(
+  ellipse 56% 64% at 50% 32%,
+  var(--bg-gradient-end) 0%,
+  var(--bg-gradient-start) 65%
+);
+
+background-repeat: no-repeat;
+background-size: cover;
+
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont;;
   font-size: var(--text-md);
