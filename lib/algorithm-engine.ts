@@ -1,0 +1,129 @@
+// AlgorithmEngine - Core abstraction for step-based algorithm execution
+
+export interface AlgorithmStep {
+  array: number[]
+  activeIndices: number[]
+  operation: "compare" | "swap" | "done" | "initial"
+  description: string
+}
+
+export interface AlgorithmDefinition {
+  id: string
+  name: string
+  category: string
+  description: string
+  code: string
+  timeComplexity: {
+    best: string
+    average: string
+    worst: string
+  }
+  spaceComplexity: string
+  generateSteps: (input: number[]) => AlgorithmStep[]
+}
+
+export class AlgorithmEngine {
+  private steps: AlgorithmStep[] = []
+  private currentIndex = 0
+  private isPlaying = false
+  private intervalId: NodeJS.Timeout | null = null
+  private speed = 500 // ms between steps
+  private onStepChange: ((step: AlgorithmStep, index: number, total: number) => void) | null = null
+  private onPlayStateChange: ((isPlaying: boolean) => void) | null = null
+
+  constructor() {
+    this.steps = []
+    this.currentIndex = 0
+  }
+
+  loadSteps(steps: AlgorithmStep[]) {
+    this.reset()
+    this.steps = steps
+    this.currentIndex = 0
+    this.notifyStepChange()
+  }
+
+  setOnStepChange(callback: (step: AlgorithmStep, index: number, total: number) => void) {
+    this.onStepChange = callback
+  }
+
+  setOnPlayStateChange(callback: (isPlaying: boolean) => void) {
+    this.onPlayStateChange = callback
+  }
+
+  setSpeed(ms: number) {
+    this.speed = ms
+    if (this.isPlaying) {
+      this.pause()
+      this.play()
+    }
+  }
+
+  play() {
+    if (this.isPlaying || this.currentIndex >= this.steps.length - 1) return
+    this.isPlaying = true
+    this.onPlayStateChange?.(true)
+
+    this.intervalId = setInterval(() => {
+      if (this.currentIndex < this.steps.length - 1) {
+        this.currentIndex++
+        this.notifyStepChange()
+      } else {
+        this.pause()
+      }
+    }, this.speed)
+  }
+
+  pause() {
+    this.isPlaying = false
+    this.onPlayStateChange?.(false)
+    if (this.intervalId) {
+      clearInterval(this.intervalId)
+      this.intervalId = null
+    }
+  }
+
+  stepForward() {
+    if (this.currentIndex < this.steps.length - 1) {
+      this.currentIndex++
+      this.notifyStepChange()
+    }
+  }
+
+  stepBack() {
+    if (this.currentIndex > 0) {
+      this.currentIndex--
+      this.notifyStepChange()
+    }
+  }
+
+  reset() {
+    this.pause()
+    this.currentIndex = 0
+    if (this.steps.length > 0) {
+      this.notifyStepChange()
+    }
+  }
+
+  getCurrentStep(): AlgorithmStep | null {
+    return this.steps[this.currentIndex] || null
+  }
+
+  getCurrentIndex(): number {
+    return this.currentIndex
+  }
+
+  getTotalSteps(): number {
+    return this.steps.length
+  }
+
+  getIsPlaying(): boolean {
+    return this.isPlaying
+  }
+
+  private notifyStepChange() {
+    if (this.onStepChange && this.steps[this.currentIndex]) {
+      this.onStepChange(this.steps[this.currentIndex], this.currentIndex, this.steps.length)
+    }
+  }
+}
