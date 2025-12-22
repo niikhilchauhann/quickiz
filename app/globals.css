@@ -4,7 +4,6 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Light theme with purple accent - Google/Stripe style */
   --background: oklch(0.985 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -12,18 +11,15 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
 
-  /* Purple primary accent */
   --primary: oklch(0.546 0.245 275.75);
   --primary-foreground: oklch(0.985 0 0);
 
-  /* Soft gray secondary */
   --secondary: oklch(0.968 0.003 264.54);
   --secondary-foreground: oklch(0.205 0 0);
 
   --muted: oklch(0.968 0.003 264.54);
   --muted-foreground: oklch(0.556 0 0);
 
-  /* Light purple accent */
   --accent: oklch(0.936 0.032 275.75);
   --accent-foreground: oklch(0.446 0.245 275.75);
 

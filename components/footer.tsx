@@ -14,14 +14,17 @@ export function Footer() {
             <span className="font-semibold text-foreground">Quickiz</span>
           </div>
           <nav className="flex gap-6">
-            <Link href="/visualize" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Visualizer
+            <Link href="https://linkedin.com/in/niikhilchauhann/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              LinkedIn
             </Link>
-            <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="https://github.com/niikhilchauhann/quickiz/README.md" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Documentation
             </Link>
-            <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="https://github.com/niikhilchauhann/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               GitHub
+            </Link>
+             <Link href="https://niikhilchauhann.web.app" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Portfolio
             </Link>
           </nav>
           <p className="text-sm text-muted-foreground">Built for engineers who learn by seeing.</p>

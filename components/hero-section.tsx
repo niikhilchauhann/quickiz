@@ -29,11 +29,11 @@ export function HeroSection() {
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Button size="lg" asChild>
-                <Link href="/visualize">Start Visualizing</Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
                 <Link href="/visualize">Explore Algorithms</Link>
               </Button>
+              {/* <Button variant="outline" size="lg" asChild>
+                <Link href="/visualize">Explore Algorithms</Link>
+              </Button> */}
             </div>
           </motion.div>
 
@@ -55,7 +55,6 @@ export function HeroSection() {
               </div>
             </div>
 
-            {/* Floating code snippet */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}

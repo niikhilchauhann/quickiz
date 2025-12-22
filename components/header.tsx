@@ -20,14 +20,14 @@ export function Header() {
           <span className="text-xl font-semibold tracking-tight text-foreground">Quickiz</span>
         </Link>
 
-        <nav className="flex items-center gap-3">
+        {/* <nav className="flex items-center gap-3">
           <Button variant="ghost" size="sm" asChild>
             <Link href="/login">Login</Link>
           </Button>
           <Button size="sm" asChild>
             <Link href="/register">Register</Link>
           </Button>
-        </nav>
+        </nav> */}
       </div>
     </motion.header>
   )
