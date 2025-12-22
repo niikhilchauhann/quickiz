@@ -1,4 +1,4 @@
-import type { AlgorithmDefinition, AlgorithmStep } from "@/lib/algorithm-engine"
+import type { AlgorithmDefinition, SortingStep } from "@/lib/algorithm-engine"
 
 export const bubbleSort: AlgorithmDefinition = {
   id: "bubble-sort",
@@ -27,12 +27,13 @@ export const bubbleSort: AlgorithmDefinition = {
     worst: "O(n²)",
   },
   spaceComplexity: "O(1)",
-  generateSteps: (input: number[]): AlgorithmStep[] => {
-    const steps: AlgorithmStep[] = []
+  generateSteps: (input: number[]): SortingStep[] => {
+    const steps: SortingStep[] = []
     const arr = [...input]
     const n = arr.length
 
     steps.push({
+      type: "sorting",
       array: [...arr],
       activeIndices: [],
       operation: "initial",
@@ -43,6 +44,7 @@ export const bubbleSort: AlgorithmDefinition = {
       for (let j = 0; j < n - i - 1; j++) {
         // Compare step
         steps.push({
+          type: "sorting",
           array: [...arr],
           activeIndices: [j, j + 1],
           operation: "compare",
@@ -53,6 +55,7 @@ export const bubbleSort: AlgorithmDefinition = {
           // Swap
           ;[arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
           steps.push({
+            type: "sorting",
             array: [...arr],
             activeIndices: [j, j + 1],
             operation: "swap",
@@ -63,6 +66,7 @@ export const bubbleSort: AlgorithmDefinition = {
     }
 
     steps.push({
+      type: "sorting",
       array: [...arr],
       activeIndices: [],
       operation: "done",

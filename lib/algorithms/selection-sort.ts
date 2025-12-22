@@ -1,4 +1,4 @@
-import type { AlgorithmDefinition, AlgorithmStep } from "@/lib/algorithm-engine"
+import type { AlgorithmDefinition, SortingStep } from "@/lib/algorithm-engine"
 
 export const selectionSort: AlgorithmDefinition = {
   id: "selection-sort",
@@ -31,12 +31,13 @@ export const selectionSort: AlgorithmDefinition = {
     worst: "O(n²)",
   },
   spaceComplexity: "O(1)",
-  generateSteps: (input: number[]): AlgorithmStep[] => {
-    const steps: AlgorithmStep[] = []
+  generateSteps: (input: number[]): SortingStep[] => {
+    const steps: SortingStep[] = []
     const arr = [...input]
     const n = arr.length
 
     steps.push({
+      type: "sorting",
       array: [...arr],
       activeIndices: [],
       operation: "initial",
@@ -48,6 +49,7 @@ export const selectionSort: AlgorithmDefinition = {
 
       for (let j = i + 1; j < n; j++) {
         steps.push({
+          type: "sorting",
           array: [...arr],
           activeIndices: [minIdx, j],
           operation: "compare",
@@ -62,6 +64,7 @@ export const selectionSort: AlgorithmDefinition = {
       if (minIdx !== i) {
         ;[arr[i], arr[minIdx]] = [arr[minIdx], arr[i]]
         steps.push({
+          type: "sorting",
           array: [...arr],
           activeIndices: [i, minIdx],
           operation: "swap",
@@ -71,6 +74,7 @@ export const selectionSort: AlgorithmDefinition = {
     }
 
     steps.push({
+      type: "sorting",
       array: [...arr],
       activeIndices: [],
       operation: "done",

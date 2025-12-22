@@ -1,4 +1,4 @@
-import type { AlgorithmDefinition, AlgorithmStep } from "@/lib/algorithm-engine"
+import type { AlgorithmDefinition, SortingStep } from "@/lib/algorithm-engine"
 
 export const quickSort: AlgorithmDefinition = {
   id: "quick-sort",
@@ -35,11 +35,12 @@ function partition(arr, low, high) {
     worst: "O(n²)",
   },
   spaceComplexity: "O(log n)",
-  generateSteps: (input: number[]): AlgorithmStep[] => {
-    const steps: AlgorithmStep[] = []
+  generateSteps: (input: number[]): SortingStep[] => {
+    const steps: SortingStep[] = []
     const arr = [...input]
 
     steps.push({
+      type: "sorting",
       array: [...arr],
       activeIndices: [],
       operation: "initial",
@@ -52,6 +53,7 @@ function partition(arr, low, high) {
 
       for (let j = low; j < high; j++) {
         steps.push({
+          type: "sorting",
           array: [...arr],
           activeIndices: [j, high],
           operation: "compare",
@@ -63,6 +65,7 @@ function partition(arr, low, high) {
           ;[arr[i], arr[j]] = [arr[j], arr[i]]
           if (i !== j) {
             steps.push({
+              type: "sorting",
               array: [...arr],
               activeIndices: [i, j],
               operation: "swap",
@@ -73,6 +76,7 @@ function partition(arr, low, high) {
       }
       ;[arr[i + 1], arr[high]] = [arr[high], arr[i + 1]]
       steps.push({
+        type: "sorting",
         array: [...arr],
         activeIndices: [i + 1, high],
         operation: "swap",
@@ -93,6 +97,7 @@ function partition(arr, low, high) {
     sort(0, arr.length - 1)
 
     steps.push({
+      type: "sorting",
       array: [...arr],
       activeIndices: [],
       operation: "done",

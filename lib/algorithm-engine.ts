@@ -1,6 +1,103 @@
 // AlgorithmEngine - Core abstraction for step-based algorithm execution
 
-export interface AlgorithmStep {
+// Sorting step (existing)
+export interface SortingStep {
+  type: "sorting"
+  array: number[]
+  activeIndices: number[]
+  operation: "compare" | "swap" | "done" | "initial"
+  description: string
+}
+
+// Tree step (new)
+export interface TreeNode {
+  id: string
+  value: number
+  left?: TreeNode
+  right?: TreeNode
+  x?: number
+  y?: number
+}
+
+export interface TreeStep {
+  type: "tree"
+  root: TreeNode | null
+  highlightedNodes: string[]
+  traversalOrder: number[]
+  operation: "visit" | "insert" | "delete" | "compare" | "done" | "initial"
+  description: string
+}
+
+// Graph step (new)
+export interface GraphNode {
+  id: string
+  label: string
+  x: number
+  y: number
+}
+
+export interface GraphEdge {
+  from: string
+  to: string
+  weight?: number
+}
+
+export interface GraphStep {
+  type: "graph"
+  nodes: GraphNode[]
+  edges: GraphEdge[]
+  visitedNodes: string[]
+  activeNode: string | null
+  activeEdge: GraphEdge | null
+  queue: string[]
+  distances?: Record<string, number>
+  operation: "visit" | "explore" | "enqueue" | "dequeue" | "done" | "initial"
+  description: string
+}
+
+// Recursion step (new)
+export interface StackFrame {
+  id: string
+  functionName: string
+  args: Record<string, unknown>
+  returnValue?: unknown
+  isActive: boolean
+}
+
+export interface RecursionStep {
+  type: "recursion"
+  stackFrames: StackFrame[]
+  boardState?: (number | null)[][]
+  currentRow?: number
+  currentCol?: number
+  operation: "push" | "pop" | "execute" | "backtrack" | "done" | "initial"
+  description: string
+}
+
+// Memory step (new)
+export interface MemoryBlock {
+  id: string
+  name: string
+  value: unknown
+  address: string
+  type: "stack" | "heap"
+  pointsTo?: string
+}
+
+export interface MemoryStep {
+  type: "memory"
+  stackMemory: MemoryBlock[]
+  heapMemory: MemoryBlock[]
+  pointers: { from: string; to: string }[]
+  operation: "allocate" | "deallocate" | "update" | "traverse" | "done" | "initial"
+  description: string
+}
+
+// Union type for all steps
+export type AlgorithmStep = SortingStep | TreeStep | GraphStep | RecursionStep | MemoryStep
+
+// Legacy support - keep array/activeIndices for sorting algorithms
+export interface LegacyAlgorithmStep {
   array: number[]
   activeIndices: number[]
   operation: "compare" | "swap" | "done" | "initial"
