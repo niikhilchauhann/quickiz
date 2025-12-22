@@ -15,13 +15,14 @@ export interface TreeNode {
   value: number
   left?: TreeNode
   right?: TreeNode
+
   x?: number
   y?: number
 }
 
 export interface TreeStep {
   type: "tree"
-  root: TreeNode | null
+  root: TreeNode | undefined
   highlightedNodes: string[]
   traversalOrder: number[]
   operation: "visit" | "insert" | "delete" | "compare" | "done" | "initial"

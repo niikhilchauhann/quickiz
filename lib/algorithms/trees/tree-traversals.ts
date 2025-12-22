@@ -1,14 +1,16 @@
 import type { AlgorithmStep, TreeStep, TreeNode } from "@/lib/algorithm-engine"
 
-function cloneTree(node: TreeNode | null): TreeNode | null {
-  if (!node) return null
+function cloneTree(node: TreeNode | null | undefined): TreeNode | undefined {
+  if (!node) return undefined
+
   return {
     id: node.id,
     value: node.value,
-    left: cloneTree(node.left || null),
-    right: cloneTree(node.right || null),
+    left: cloneTree(node.left),
+    right: cloneTree(node.right),
   }
 }
+
 
 function generateNodeId(): string {
   return Math.random().toString(36).substring(2, 9)

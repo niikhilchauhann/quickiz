@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { ChevronDown, ChevronRight } from "lucide-react"
 import { useState } from "react"
-import type { AlgorithmStep } from "@/lib/algorithm-engine"
+import type { AlgorithmStep, SortingStep } from "@/lib/algorithm-engine"
 
 interface StackFrame {
   name: string
@@ -21,7 +21,16 @@ interface MemoryViewProps {
   algorithmName: string
 }
 
+function isSortingStep(step: AlgorithmStep): step is SortingStep {
+  return step.type === "sorting"
+}
+
+
 export function MemoryView({ currentStep, algorithmName }: MemoryViewProps) {
+  const sortingStep = currentStep && isSortingStep(currentStep)
+  ? currentStep
+  : null
+
   const [expandedFrames, setExpandedFrames] = useState<number[]>([0, 1, 2])
 
   const toggleFrame = (index: number) => {
@@ -32,13 +41,13 @@ export function MemoryView({ currentStep, algorithmName }: MemoryViewProps) {
   const stackFrames: StackFrame[] = [
     {
       name: "main()",
-      variables: [{ name: "arr", value: `[${currentStep?.array?.join(", ") || "..."}]` }],
+      variables: [{ name: "arr", value: `[${sortingStep?.array?.join(", ") || "..."}]` }],
     },
     {
-      name: `${algorithmName.replace(/\s/g, "")}(arr, 0, ${currentStep?.array?.length || 0})`,
+      name: `${algorithmName.replace(/\s/g, "")}(arr, 0, ${sortingStep?.array?.length || 0})`,
       variables: [
-        { name: "i", value: String(currentStep?.activeIndices?.[0] ?? 0) },
-        { name: "j", value: String(currentStep?.activeIndices?.[1] ?? 0) },
+        { name: "i", value: String(sortingStep?.activeIndices?.[0] ?? 0) },
+        { name: "j", value: String(sortingStep?.activeIndices?.[1] ?? 0) },
       ],
     },
     {
@@ -52,7 +61,7 @@ export function MemoryView({ currentStep, algorithmName }: MemoryViewProps) {
     {
       address: "0x7f3a",
       type: "Array",
-      values: currentStep?.array || [64, 34, 25, 12, 22, 11, 90, 45],
+      values: sortingStep?.array || [64, 34, 25, 12, 22, 11, 90, 45],
     },
   ]
 
@@ -115,7 +124,7 @@ export function MemoryView({ currentStep, algorithmName }: MemoryViewProps) {
                 </div>
                 <div className="flex flex-wrap gap-1">
                   {obj.values.map((v, i) => {
-                    const isActive = currentStep?.activeIndices?.includes(i)
+                    const isActive = sortingStep?.activeIndices?.includes(i)
                     return (
                       <span
                         key={i}
@@ -136,13 +145,13 @@ export function MemoryView({ currentStep, algorithmName }: MemoryViewProps) {
           <div className="mt-4 rounded-md border border-dashed border-border p-3">
             <h5 className="text-xs font-medium text-muted-foreground mb-2">Active Pointers</h5>
             <div className="flex gap-4">
-              {currentStep?.activeIndices?.map((idx, i) => (
+              {sortingStep?.activeIndices?.map((idx, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <span className="text-xs text-muted-foreground">{i === 0 ? "i" : "j"}:</span>
                   <span className="font-mono text-xs text-primary">{idx}</span>
                 </div>
               ))}
-              {(!currentStep?.activeIndices || currentStep.activeIndices.length === 0) && (
+              {(!sortingStep?.activeIndices || sortingStep.activeIndices.length === 0) && (
                 <span className="text-xs text-muted-foreground">No active pointers</span>
               )}
             </div>
