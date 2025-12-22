@@ -1,10 +1,17 @@
+import { Header } from "@/components/header"
+import { HeroSection } from "@/components/hero-section"
+import { FeatureCards } from "@/components/feature-cards"
+import { Footer } from "@/components/footer"
+
 export default function HomePage() {
   return (
-    <main style={{ padding: "2rem" }}>
-      <h1>Quickiz</h1>
-      <p>
-        Visualize Data Structures & Algorithms with time and memory analysis.
-      </p>
-    </main>
-  );
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main>
+        <HeroSection />
+        <FeatureCards />
+      </main>
+      <Footer />
+    </div>
+  )
 }
