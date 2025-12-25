@@ -14,20 +14,26 @@ export function Header() {
     >
       <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+          {/* <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
             <span className="text-sm font-bold text-primary-foreground">Q</span>
-          </div>
+          </div> */}
           <span className="text-xl font-semibold tracking-tight text-foreground">Quickiz</span>
         </Link>
 
-        {/* <nav className="flex items-center gap-3">
+        <nav className="flex items-center gap-3">
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/login">Login</Link>
+            <Link href="/">Home</Link>
+          </Button>
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/">Playground</Link>
+          </Button>
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/">Learnings</Link>
           </Button>
           <Button size="sm" asChild>
-            <Link href="/register">Register</Link>
+            <Link href="/visualize">Visualizer</Link>
           </Button>
-        </nav> */}
+        </nav>
       </div>
     </motion.header>
   )

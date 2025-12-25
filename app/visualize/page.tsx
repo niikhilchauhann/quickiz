@@ -13,6 +13,7 @@ import { algorithms } from "@/lib/algorithms"
 import type { AlgorithmDefinition } from "@/lib/algorithm-engine"
 
 export default function VisualizePage() {
+  // use state hooks
   const [activeCategory, setActiveCategory] = useState("sorting")
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<AlgorithmDefinition | null>(null)
   const [viewMode, setViewMode] = useState<"algorithm" | "memory">("algorithm")

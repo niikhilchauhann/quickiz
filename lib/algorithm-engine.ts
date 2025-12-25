@@ -1,6 +1,6 @@
 // AlgorithmEngine - Core abstraction for step-based algorithm execution
 
-// Sorting step (existing)
+// Sorting step
 export interface SortingStep {
   type: "sorting"
   array: number[]
@@ -9,7 +9,7 @@ export interface SortingStep {
   description: string
 }
 
-// Tree step (new)
+// Tree step
 export interface TreeNode {
   id: string
   value: number
@@ -29,7 +29,7 @@ export interface TreeStep {
   description: string
 }
 
-// Graph step (new)
+// Graph step
 export interface GraphNode {
   id: string
   label: string
@@ -56,7 +56,7 @@ export interface GraphStep {
   description: string
 }
 
-// Recursion step (new)
+// Recursion step
 export interface StackFrame {
   id: string
   functionName: string
@@ -75,7 +75,7 @@ export interface RecursionStep {
   description: string
 }
 
-// Memory step (new)
+// Memory step
 export interface MemoryBlock {
   id: string
   name: string
@@ -97,7 +97,7 @@ export interface MemoryStep {
 // Union type for all steps
 export type AlgorithmStep = SortingStep | TreeStep | GraphStep | RecursionStep | MemoryStep
 
-// Legacy support - keep array/activeIndices for sorting algorithms
+// Legacy support
 export interface LegacyAlgorithmStep {
   array: number[]
   activeIndices: number[]
@@ -125,7 +125,7 @@ export class AlgorithmEngine {
   private currentIndex = 0
   private isPlaying = false
   private intervalId: NodeJS.Timeout | null = null
-  private speed = 500 // ms between steps
+  private speed = 400 // ms between steps
   private onStepChange: ((step: AlgorithmStep, index: number, total: number) => void) | null = null
   private onPlayStateChange: ((isPlaying: boolean) => void) | null = null
 
